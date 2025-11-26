@@ -354,7 +354,6 @@ const postsSlice = createSlice({
  
 })
 
-
 export const selectAllPosts = (state) => state.posts.posts;
 export const getCounter = (state) => state.posts.counter;
 export const { addPost, deletePost, reactPost, sortPostsAsc ,updatePostReaction, increaseCount } = postsSlice.actions;
