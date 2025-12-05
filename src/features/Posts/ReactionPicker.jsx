@@ -2,13 +2,14 @@ import React, {forwardRef, useRef} from 'react'
 import { SlLike } from "react-icons/sl";
 
 const ReactionPicker = forwardRef(({handleReactionPickerEnter,
-       handleReactionPickerLeave}, reactionPickerRef)=>{
+       handleReactionPickerLeave, onReactionClick}, reactionPickerRef)=>{
    const timeoutIdRef = useRef(null);
 
   const onMouseEnter = () => {
+    handleReactionPickerEnter();
     timeoutIdRef.current = setTimeout(() => {
       console.log("Hovered long enough!");
-      handleReactionPickerEnter();
+      // handleReactionPickerEnter();
     }, 500); // delay in ms
   };
 
@@ -17,12 +18,14 @@ const ReactionPicker = forwardRef(({handleReactionPickerEnter,
     handleReactionPickerLeave(e); //call the handler in the parent
   };
 
+
   return (
     <button
-    className = 'border-amber-300'
+    className = 'border-amber-300 '
     ref= {reactionPickerRef}
     onMouseEnter={onMouseEnter} 
-      onMouseLeave={onMouseLeave}><SlLike></SlLike></button>
+      onMouseLeave={onMouseLeave}
+      onClick={()=> onReactionClick('like')}><SlLike></SlLike></button>
   )
 })
 

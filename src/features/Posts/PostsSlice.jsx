@@ -14,7 +14,7 @@ const posts = [
       "This is my first post using React! I'm excited to learn more about components and state.",
     date: "2025-10-14",
     reactions: {
-      likes: [],
+      like: [],
       heart: [],
       wow: []
     }
@@ -28,7 +28,7 @@ const posts = [
       "Props help us pass data between components, while state lets a component keep track of its own changing data.",
     date: "2025-10-13",
     reactions: {
-      likes: [],
+      like: [],
       heart: [],
       wow: []
     }
@@ -42,7 +42,7 @@ const posts = [
       "I recently learned about useState and useEffect — and wow, they make functional components super powerful!",
     date: "2025-10-12",
     reactions: {
-      likes: [],
+      like: [],
       heart: [],
       wow: []
     }
@@ -56,7 +56,7 @@ const posts = [
       "CSS Modules and styled-components make it easier to write maintainable, scoped styles in React projects.",
     date: "2025-10-11",
     reactions: {
-      likes: [],
+      like: [],
       heart: [],
       wow: []
     }
@@ -70,7 +70,7 @@ const posts = [
       "Vite is blazing fast compared to Create React App. Hot reloads happen instantly, and builds are much quicker.",
     date: "2025-10-10",
     reactions: {
-      likes: [],
+      like: [],
       heart: [],
       wow: []
     }
@@ -84,7 +84,7 @@ const posts = [
       "React Router makes navigation feel seamless. I finally understood how nested routes work today!",
     date: "2025-10-09",
     reactions: {
-      likes: [],
+      like: [],
       heart: [],
       wow: []
     }
@@ -98,7 +98,7 @@ const posts = [
       "Building reusable UI components saves so much time — like buttons, modals, and inputs with shared styles.",
     date: "2025-10-08",
     reactions: {
-      likes: [],
+      like: [],
       heart: [],
       wow: []
     }
@@ -112,7 +112,7 @@ const posts = [
       "Use memoization wisely and avoid unnecessary re-renders. React DevTools Profiler helps a lot in finding bottlenecks.",
     date: "2025-10-07",
     reactions: {
-      likes: [],
+      like: [],
       heart: [],
       wow: []
     }
@@ -126,7 +126,7 @@ const posts = [
       "Implementing dark mode using Context and custom hooks is easier than I expected. It’s fun to toggle themes!",
     date: "2025-10-06",
     reactions: {
-      likes: [],
+      like: [],
       heart: [],
       wow: []
     }
@@ -140,7 +140,7 @@ const posts = [
       "Migrating my project to TypeScript made my codebase more predictable and reduced runtime errors.",
     date: "2025-10-05",
     reactions: {
-      likes: [],
+      like: [],
       heart: [],
       wow: []
     }
@@ -154,7 +154,7 @@ const posts = [
       "useReducer is great for managing complex state logic, especially when you have multiple actions and transitions.",
     date: "2025-10-04",
     reactions: {
-      likes: [],
+      like: [],
       heart: [],
       wow: []
     }
@@ -168,7 +168,7 @@ const posts = [
       "I built a small to-do app using React. It helped me understand controlled components and event handling.",
     date: "2025-10-03",
     reactions: {
-      likes: [],
+      like: [],
       heart: [],
       wow: []
     }
@@ -182,7 +182,7 @@ const posts = [
       "Creating my first custom hook was satisfying. I made one for managing form inputs cleanly.",
     date: "2025-10-02",
     reactions: {
-      likes: [],
+      like: [],
       heart: [],
       wow: []
     }
@@ -196,7 +196,7 @@ const posts = [
       "Setting up Firebase Authentication with React was surprisingly smooth. I can now store user data easily!",
     date: "2025-10-01",
     reactions: {
-      likes: [],
+      like: [],
       heart: [],
       wow: []
     }
@@ -210,7 +210,7 @@ const posts = [
       "Handling form state can get tricky, but using libraries like React Hook Form simplifies validation a lot.",
     date: "2025-09-30",
     reactions: {
-      likes: [],
+      like: [],
       heart: [],
       wow: []
     }
@@ -224,7 +224,7 @@ const posts = [
       "I just deployed my first React app using Netlify. It’s amazing to see it live on the web!",
     date: "2025-09-29",
     reactions: {
-      likes: [],
+      like: [],
       heart: [],
       wow: []
     }
@@ -238,7 +238,7 @@ const posts = [
       "ESLint helps catch small mistakes early and keeps my code consistent across the project.",
     date: "2025-09-28",
     reactions: {
-      likes: [],
+      like: [],
       heart: [],
       wow: []
     }
@@ -252,7 +252,7 @@ const posts = [
       "Next.js provides server-side rendering out of the box. The image optimization and routing features are top-notch!",
     date: "2025-09-27",
     reactions: {
-      likes: [],
+      like: [],
       heart: [],
       wow: []
     }
@@ -266,7 +266,7 @@ const posts = [
       "Both are great for state management, but I prefer Redux for large applications where logic grows complex.",
     date: "2025-09-26",
     reactions: {
-      likes: [],
+      like: [],
       heart: [],
       wow: []
     }
@@ -280,7 +280,7 @@ const posts = [
       "Framer Motion makes React animations so intuitive! Transitions and drag interactions feel smooth and natural.",
     date: "2025-09-25",
     reactions: {
-      likes: [],
+      like: [],
       heart: [],
       wow: []
     }
@@ -300,7 +300,7 @@ const postsSlice = createSlice({
     // addPost: (state, action)=> state.push(action.payload),
     addPost: {
       reducer(state, action) {
-        state.push(action.payload);
+        state.posts.push(action.payload);
       },
 
       prepare({ title, content }) {
@@ -316,11 +316,11 @@ const postsSlice = createSlice({
     },
     deletePost: (state, action) => {
       console.log(action.payload);
-      return state.filter((post) =>{return post.id !== action.payload})
+      state.posts = state.posts.filter((post) =>{return post.id !== action.payload})
     },
     updatePost: () => { }, 
     sortPostsAsc: (state) => {
-      state.sort((a,b)=> {
+      state.posts.sort((a,b)=> {
         if(a.date > b.date) return 1;
         return -1;
       });
@@ -329,9 +329,9 @@ const postsSlice = createSlice({
     updatePostReaction: (state, action)=> {
       const userId = 1; //static for now
       const {postId, newReaction} = action.payload;
-      const post = state.find(p=> p.id === postId );
-      console.log('postId', postId)
-      console.log('post: ', current(post))
+      const post = state.posts.find(p=> p.id === postId );
+      // console.log('from update post Action, postId : ' , postId)
+      // console.log('post: ', current(post))
       const reactionsOnPost = Object.entries(post['reactions']);
       let prevReaction = '';
 
