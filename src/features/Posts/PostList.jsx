@@ -14,9 +14,9 @@ import Post from './Post';
     }
     return <div>
         <h1>Posts </h1>
-        <p>Counter: {counter}</p>
+        {/* <p>Counter: {counter}</p>
         <button onClick={()=> dispatch(increaseCount())}>+1 </button>
-        <button onClick={()=> dispatch(sortPostsAsc())}>Oldest First</button>
+        <button onClick={()=> dispatch(sortPostsAsc())}>Oldest First</button> */}
     <ul>
             {posts.map(post => (
                        <Post key={post.id} post={post}></Post>

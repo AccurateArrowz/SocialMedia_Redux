@@ -1,15 +1,8 @@
 import { useDispatch } from 'react-redux'
 import {updatePostReaction} from "./PostsSlice"
-import { AiTwotoneHeart,AiOutlineLike } from "react-icons/ai";
 import { forwardRef, useEffect, useState } from 'react';
-import { ImShocked } from "react-icons/im";
+import reactionIcons from './ReactionIcons.jsx';
 
-
-const reactions ={
-    'wow': <ImShocked color='yellow'/>,
-    'heart': <AiTwotoneHeart color='red'/>,
-    'likes': <AiOutlineLike color='blue'/>
-}   
 const ReactionOptions = forwardRef(({reactionPickerTop, postId, onReactionOptionsLeave, onReactionClick}, ref)=>{
     const dispatch = useDispatch()
     // console.log('ReactionPickerTop ' , reactionPickerTop)
@@ -26,7 +19,7 @@ const ReactionOptions = forwardRef(({reactionPickerTop, postId, onReactionOption
     className= {` flex gap-0.5 border w-fit opacity-100 transition-opacity duration-400`}
         style={{ position: 'absolute', top: reactionPickerTop - height }}
     >
-      {Object.entries(reactions).map(([reactionName, icon]) => 
+      {Object.entries(reactionIcons).map(([reactionName, icon]) => 
         <button 
         className='border'
         onClick={()=>onReactionClick(reactionName)}>{icon}</button>)}

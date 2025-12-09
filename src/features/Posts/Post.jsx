@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import ReactionPicker from "./ReactionPicker";
 import { updatePostReaction } from "./PostsSlice";
 import { useDispatch } from "react-redux";
+import delay from "../../app/utils/delay";
 
 export default function Post({ post }) {
   const [showReactionOptions, setShowReactionOptions] = useState(false);
@@ -12,11 +13,9 @@ export default function Post({ post }) {
 
   const dispatch = useDispatch();
 
-  function handleReactionPickerEnter() {
-    setTimeout(()=> {
-      console.log('ran after 1sec ')
+  async function handleReactionPickerEnter() {
+      await delay(50);
       setShowReactionOptions(true);
-    }, 50)
   }
 
   function handleReactionPickerLeave(e) {
@@ -49,12 +48,15 @@ export default function Post({ post }) {
   }
 
   function handleReactionClick(reactionName) {
-    console.log('and')
-    dispatch(updatePostReaction({newReaction: reactionName, postId: post.id}));
+    console.log(reactionName, ' was clicked')
+    dispatch(updatePostReaction({ postId: post.id, newReaction: reactionName}));
     setShowReactionOptions(false);
-
-    
   }
+
+  const currentReaction = Object.entries(post.reactions).find(([_, users]) => 
+          users.includes(1) // Hardcoded user ID 1 for now
+        )?.[0];
+  // if(post.id === 1) console.log(currentUserReaction);
 
   return (
     <section className="border py-4 px-4">
@@ -68,6 +70,7 @@ export default function Post({ post }) {
         handleReactionPickerEnter={handleReactionPickerEnter}
         handleReactionPickerLeave={handleReactionPickerLeave}
         onReactionClick={handleReactionClick}
+        currentReaction={currentReaction} //would be undefined if the user has not reacted yet
       ></ReactionPicker>
 
       {showReactionOptions && (

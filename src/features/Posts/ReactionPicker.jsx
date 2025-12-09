@@ -1,9 +1,14 @@
-import React, {forwardRef, useRef} from 'react'
+import React, {forwardRef, useRef} from 'react';
 import { SlLike } from "react-icons/sl";
+import reactionIcons from './ReactionIcons.jsx';
 
-const ReactionPicker = forwardRef(({handleReactionPickerEnter,
-       handleReactionPickerLeave, onReactionClick}, reactionPickerRef)=>{
-   const timeoutIdRef = useRef(null);
+const ReactionPicker = forwardRef(({
+  handleReactionPickerEnter,
+  handleReactionPickerLeave, 
+  onReactionClick, 
+  currentReaction
+}, reactionPickerRef) => {
+  const timeoutIdRef = useRef(null);
 
   const onMouseEnter = () => {
     handleReactionPickerEnter();
@@ -18,15 +23,23 @@ const ReactionPicker = forwardRef(({handleReactionPickerEnter,
     handleReactionPickerLeave(e); //call the handler in the parent
   };
 
+  const handleClick = () => {
+    // Toggle reaction if already reacted, otherwise default to 'like'
+    onReactionClick(currentReaction ? null : 'like');
+  };
+
+    // if(post.id === 1) console.log(currentUserReaction);
 
   return (
     <button
-    className = 'border-amber-300 '
-    ref= {reactionPickerRef}
-    onMouseEnter={onMouseEnter} 
+      className='border-amber-300'
+      ref={reactionPickerRef}
+      onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      onClick={()=> onReactionClick('like')}><SlLike></SlLike></button>
-  )
-})
-
+      onClick={handleClick}
+    >
+      {currentReaction ? reactionIcons[currentReaction] : <SlLike />}
+    </button>
+  );
+});
 export default ReactionPicker

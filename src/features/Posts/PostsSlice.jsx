@@ -15,7 +15,7 @@ const posts = [
     date: "2025-10-14",
     reactions: {
       like: [],
-      heart: [],
+      heart: [1],
       wow: []
     }
   },
@@ -349,11 +349,21 @@ const postsSlice = createSlice({
     },
     increaseCount: (state, action)=>{
       state.counter++;
-    }
+    },
   }, 
  
 })
 
+export const currentUserReaction= (state)=> {
+  const currentUserId = 1;
+  const reactionsOnPost = state.posts.posts.reactions;
+  const reaction = Object.entries(reactionsOnPost).forEach(([reactionName, reactedByArray])=> {
+          if(reactedByArray.includes(currentUserId)){
+            return reactionName
+          }
+      })
+  return reaction; //would return undefined if the user has not reacted on the post
+    }
 export const selectAllPosts = (state) => state.posts.posts;
 export const getCounter = (state) => state.posts.counter;
 export const { addPost, deletePost, reactPost, sortPostsAsc ,updatePostReaction, increaseCount } = postsSlice.actions;
