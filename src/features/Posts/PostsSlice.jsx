@@ -15,7 +15,7 @@ const posts = [
     date: "2025-10-14",
     reactions: {
       like: [],
-      heart: [1],
+      heart: [],
       wow: []
     }
   },
@@ -30,7 +30,7 @@ const posts = [
     reactions: {
       like: [],
       heart: [],
-      wow: []
+      wow: [1]
     }
   },
   {

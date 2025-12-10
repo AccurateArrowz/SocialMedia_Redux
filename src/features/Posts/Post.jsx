@@ -10,15 +10,20 @@ export default function Post({ post }) {
   const [showReactionOptions, setShowReactionOptions] = useState(false);
   const reactionPickerRef = useRef(null);
   const reactionOptionsRef = useRef(null);
+  const showReactionOptionsTimerRef = useRef(null);
 
   const dispatch = useDispatch();
 
-  async function handleReactionPickerEnter() {
-      await delay(50);
-      setShowReactionOptions(true);
-  }
+
+const handleReactionPickerEnter = () => {
+  showReactionOptionsTimerRef.current = setTimeout(() => {
+    setShowReactionOptions(true);
+  }, 100);
+};
 
   function handleReactionPickerLeave(e) {
+  clearTimeout(showReactionOptionsTimerRef.current);
+
     const { top, bottom, left, right } =
       reactionPickerRef.current.getBoundingClientRect();
     const {

@@ -8,20 +8,6 @@ const ReactionPicker = forwardRef(({
   onReactionClick, 
   currentReaction
 }, reactionPickerRef) => {
-  const timeoutIdRef = useRef(null);
-
-  const onMouseEnter = () => {
-    handleReactionPickerEnter();
-    timeoutIdRef.current = setTimeout(() => {
-      console.log("Hovered long enough!");
-      // handleReactionPickerEnter();
-    }, 500); // delay in ms
-  };
-
-  const onMouseLeave = (e) => {
-    clearTimeout(timeoutIdRef.current); // cancel the callback if user leaves early
-    handleReactionPickerLeave(e); //call the handler in the parent
-  };
 
   const handleClick = () => {
     // Toggle reaction if already reacted, otherwise default to 'like'
@@ -34,8 +20,8 @@ const ReactionPicker = forwardRef(({
     <button
       className='border-amber-300'
       ref={reactionPickerRef}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
+      onMouseEnter={handleReactionPickerEnter}
+      onMouseLeave={handleReactionPickerLeave}
       onClick={handleClick}
     >
       {currentReaction ? reactionIcons[currentReaction] : <SlLike />}
